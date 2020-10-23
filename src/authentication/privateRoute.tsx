@@ -1,6 +1,7 @@
 import React, {useEffect, useContext} from 'react';
 import {Route, Switch} from 'react-router-dom';
 import homePage from '../pages/homePage/homePage';
+import Loader from '../atoms/loader';
 import firebase from '../firebase'
 import {GlobalContext} from '../context/GlobalState'
 export default(props: any) => {
@@ -24,9 +25,9 @@ export default(props: any) => {
                 <Switch>
                     <Route path="/" exact component={ homePage }/>
                 </Switch> :
-                <div>
-                    loader...
-                </div>}
+                <Switch>
+                    <Route path="/" exact component={ Loader }/>
+                </Switch>}
         </div>
 
     )
