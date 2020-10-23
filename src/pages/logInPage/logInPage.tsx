@@ -1,4 +1,4 @@
-import React, { useState ,useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import firebase from '../../firebase'
 import {Link} from 'react-router-dom';
 import {GlobalContext} from '../../context/GlobalState'
@@ -6,11 +6,11 @@ type User = {
     email: string | '';
     password: string | '';
 }
-export default ({history}:any) => {
+export default ({history}: any) => {
     const [user, setUser] = useState<User | any>(null);
     const [error, setError] = useState('');
     const {state}:any = useContext(GlobalContext);
-    console.log("userDetail",state);
+    console.log("userDetail", state);
     const loginHandler = (e: any) => {
         e.preventDefault();
         if (user === null) {
@@ -29,9 +29,9 @@ export default ({history}:any) => {
                 firebase.auth().signInWithEmailAndPassword(user.email, user.password)
                     .then(() => {
                         firebase.auth().onAuthStateChanged(() => {
-                             localStorage.setItem('logged', "true")
-                               history.push('/')
-                      });
+                            state.loader = false;
+                            history.push('/')
+                        });
                     })
                     .catch((err) => {
                         setError(err.message);
@@ -59,7 +59,7 @@ export default ({history}:any) => {
                                 onChange={
                                     (e) => {
                                         setError("");
-                                        let dub = { ...user }
+                                        let dub = {...user}
                                         dub.email = e.target.value;
                                         setUser(dub);
                                     }
@@ -68,7 +68,7 @@ export default ({history}:any) => {
 
                             <label htmlFor="userPassword" className="block">
                                 Password:
-                             </label>
+                            </label>
                             <input
                                 type="password"
                                 className="mt-1 mb-3 p-1 w-full outline-none border"
@@ -79,7 +79,7 @@ export default ({history}:any) => {
                                 onChange={
                                     (e) => {
                                         setError("");
-                                        let dub = { ...user }
+                                        let dub = {...user}
                                         dub.password = e.target.value;
                                         setUser(dub);
                                     }
@@ -97,7 +97,7 @@ export default ({history}:any) => {
                         <p className="text-center my-3">Don't have an account {" "}
                             <Link to="/sign-up" className="text-blue-500 hover:text-blue-600">
                                 Sign up here
-                             </Link>
+                            </Link>
                         </p>
 
                     </div>

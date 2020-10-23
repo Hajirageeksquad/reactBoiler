@@ -1,5 +1,6 @@
 export const initialState = {
     userDetail: "",
     loader: true ,
-    data: []
+    data: [],
+    error:{}
 };

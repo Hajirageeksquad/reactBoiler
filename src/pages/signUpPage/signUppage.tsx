@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 import {Link} from 'react-router-dom';
-import firebase from '../../firebase'
+import firebase from '../../firebase';
+import {GlobalContext} from '../../context/GlobalState'
 type User = {
   email: string | '';
   password: string | '';
   name: string | '';
 }
+
 const SignUpPage = ({history}:any) => {
+    const {state}:any = useContext(GlobalContext);
   const [user, setUser] = useState<User | any>(null);
   const [error, setError] = useState('');
   const signupHandler = (event: any) => {
@@ -39,6 +42,7 @@ const SignUpPage = ({history}:any) => {
             firebase.firestore().collection('users')
               .doc(uid ? uid : "")
               .set(userObj);
+              state.loader = false;
                history.push('/')
              }).catch(function (error) {
             setError(error.message)

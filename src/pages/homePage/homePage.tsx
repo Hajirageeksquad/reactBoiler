@@ -11,6 +11,7 @@ export default (props: any) => {
     const [id, setId] = useState();
     const [data, setData] = useState([]);
     const [title, setTitle] = useState('');
+
     return (
         <div className="">
             <div className="py-5">
@@ -33,7 +34,7 @@ export default (props: any) => {
 
                         <button className=" bg-green-400 hover:bg-green-500 w-1/3 py-2 text-white w-1/4"
                                 onClick={() => {
-                                    let dub = [...data]
+                                    let dub = [...data];
                                     let filter: any = dub.filter((single: any) => single.id === id);
                                     filter[0].title = title;
                                     updateService(id, dub, dispatch)
@@ -44,13 +45,17 @@ export default (props: any) => {
                     <button className="my-4 bg-green-400 hover:bg-green-500 w-full py-2 text-white"
                             onClick={() => {
                                 firebase.auth().signOut().then(() => {
+                                    state.loader=true;
                                     history.push("/login")
                                 })
                             }}>
                         Logout
                     </button>
                     <button className="my-4 bg-green-400 hover:bg-green-500 w-full py-2 text-white" onClick={() =>
-                        getDataAction(dispatch)}>getData
+                         getDataAction(dispatch)
+                        }
+
+                    >getData
                     </button>
                     {state.data.map((sin: any, index: number) =>
                         <div key={index} className="flex justify-between m-4">
