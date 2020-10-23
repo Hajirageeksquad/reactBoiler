@@ -29,23 +29,18 @@ const SignUpPage = ({history}:any) => {
       else {
         setError("");
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-          .then(() => {
-             history.push('/')
-            // let uid = data && data.user && data.user.uid;
-            // let userObj = {
-            //   fullName: user.name,
-            //   email: user.email,
-            //   uid
-            // };
-            // firebase.firestore().collection('users')
-            //   .doc(uid ? uid : "")
-            //   .set(userObj).then(() => {
-              
-            //   })
-            //   .catch(() => {
-            //     console.log("...")
-            //   })
-          }).catch(function (error) {
+          .then((data:any) => {
+            let uid = data && data.user && data.user.uid;
+            let userObj = {
+              fullName: user.name,
+              email: user.email,
+              uid
+            };
+            firebase.firestore().collection('users')
+              .doc(uid ? uid : "")
+              .set(userObj);
+               history.push('/')
+             }).catch(function (error) {
             setError(error.message)
           });
       }

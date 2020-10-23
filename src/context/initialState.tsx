@@ -1,5 +1,5 @@
 export const initialState = {
     userDetail: "",
-    loggedIn: localStorage.getItem('logged') ? localStorage.getItem('logged') : false,
+    loader: true ,
     data: []
 };
